@@ -6,13 +6,20 @@
  * Time: 9:32
  */
 
-namespace Wanphp\Plugins\About\Application;
+namespace Wanphp\Plugins\About\Application\Manage;
 
 
 use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
+use Wanphp\Plugins\About\Application\Api;
 use Wanphp\Plugins\About\Domain\AboutInterface;
 
+/**
+ * Class AboutApi
+ * @title 关于我们
+ * @route /api/manage/about
+ * @package Wanphp\Plugins\About\Application\Manage
+ */
 class AboutApi extends Api
 {
   private AboutInterface $about;
