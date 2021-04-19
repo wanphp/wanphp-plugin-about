@@ -28,7 +28,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Wanphp\\Plugins\\Weixin\\": "/src"
+      "Wanphp\\Plugins\\About\\": "/src"
     }
   },
   "repositories": {
