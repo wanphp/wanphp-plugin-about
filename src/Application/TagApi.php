@@ -26,7 +26,7 @@ class TagApi extends Api
    * @return Response
    * @throws Exception
    * @OA\Get(
-   *  path="/api/manage/about/tags",
+   *  path="/about/tags",
    *  tags={"Tag"},
    *  summary="获取标签列表",
    *  operationId="GetTags",
