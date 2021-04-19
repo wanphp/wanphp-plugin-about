@@ -1,0 +1,272 @@
+openapi: 3.0.0
+info:
+  title: 帮助说明
+  description: 帮助说明接口
+  version: 1.0.0
+servers:
+  -
+    url: 'https://localhost'
+    description: 'OpenApi host'
+paths:
+  /api/manage/about:
+    get:
+      tags:
+        - About
+      summary: 获取数据列表
+      operationId: GetAboutList
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - { $ref: '#/components/schemas/Success' }
+                  - { properties: { datas: { type: array, items: { $ref: '#/components/schemas/About' } } }, type: object }
+        '400':
+          description: 请求失败
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - About
+      summary: 新建帮助说明
+      operationId: addAbout
+      requestBody:
+        description: 数据
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewAbout'
+      responses:
+        '201':
+          description: 创建成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - { $ref: '#/components/schemas/Success' }
+                  - { properties: { datas: { properties: { id: { type: integer } }, type: object } }, type: object }
+        '400':
+          description: 请求失败
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        -
+          bearerAuth: []
+  '/api/manage/about/{id}':
+    get:
+      tags:
+        - About
+      summary: 获取指定内容
+      operationId: GetAbout
+      parameters:
+        -
+          name: id
+          in: path
+          description: ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - { $ref: '#/components/schemas/Success' }
+                  - { properties: { datas: { $ref: '#/components/schemas/About' } }, type: object }
+        '400':
+          description: 请求失败
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        -
+          bearerAuth: []
+    put:
+      tags:
+        - About
+      summary: 修改信息
+      operationId: editAbout
+      parameters:
+        -
+          name: id
+          in: path
+          description: D
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: 指定需要更新数据
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewAbout'
+      responses:
+        '201':
+          description: 更新成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - { $ref: '#/components/schemas/Success' }
+                  - { properties: { datas: { properties: { up_num: { type: integer } }, type: object } }, type: object }
+        '400':
+          description: 请求失败
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        -
+          bearerAuth: []
+    delete:
+      tags:
+        - About
+      summary: 删除信息
+      operationId: delAbout
+      parameters:
+        -
+          name: id
+          in: path
+          description: ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - { $ref: '#/components/schemas/Success' }
+                  - { properties: { datas: { properties: { del_num: { type: integer } }, type: object } }, type: object }
+        '400':
+          description: 请求失败
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        -
+          bearerAuth: []
+  /api/manage/about/tags:
+    get:
+      tags:
+        - Tag
+      summary: 获取标签列表
+      operationId: GetTags
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - { $ref: '#/components/schemas/Success' }
+                  - { properties: { datas: { type: array, items: { properties: { id: { description: 标签ID, type: integer }, name: { description: 标签名, type: string }, sortOrder: { description: 显示排序, type: integer } }, type: object } } }, type: object }
+        '400':
+          description: 请求失败
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      title: 出错提示
+      properties:
+        code:
+          type: string
+          example: '400'
+        error:
+          type: string
+        error_description:
+          type: string
+        hint:
+          type: string
+        message:
+          type: string
+          example: 错误说明
+      type: object
+    Success:
+      title: 成功提示
+      required:
+        - code
+        - message
+        - datas
+      properties:
+        code:
+          type: string
+          example: '200'
+        message:
+          type: string
+          example: OK
+        datas:
+          description: 返回数据
+          type: object
+      type: object
+    NewAbout:
+      title: 添加帮助说明
+      required:
+        - title
+      properties:
+        tagId:
+          description: 标签ID
+          type: integer
+        title:
+          description: 标题
+          type: string
+        cover:
+          description: 封面
+          type: string
+        description:
+          description: 简介
+          type: string
+        content:
+          description: 内容
+          type: string
+        sortOrder:
+          description: 排序
+          type: integer
+      type: object
+    About:
+      title: 帮助说明
+      type: object
+      allOf:
+        -
+          $ref: '#/components/schemas/NewAbout'
+        -
+          required:
+            - id
+          properties:
+            id:
+              description: ID
+              type: integer
+              format: int64
+          type: object
+  securitySchemes:
+    bearerAuth:
+      type: http
+      bearerFormat: JWT
+      scheme: bearer
+tags:
+  -
+    name: Tag
+    description: 标签分组
+  -
+    name: About
+    description: 帮助说明
