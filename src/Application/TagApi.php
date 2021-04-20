@@ -63,7 +63,8 @@ class TagApi extends Api
       $where['LIMIT'] = [($cur_page - 1) * $pageSize, $pageSize];
       if ($cur_page == 1) $total = $this->tag->count('id', $where);
     }
+    $where['ORDER'] = ['sortOrder' => 'ASC'];
     $datas = $this->tag->select('id,name,sortOrder', $where);
-    return $this->respondWithData(['aboutlist' => $datas, 'total' => $total ?? null]);
+    return $this->respondWithData(['tags' => $datas, 'total' => $total ?? null]);
   }
 }

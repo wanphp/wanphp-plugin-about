@@ -204,8 +204,9 @@ class AboutApi extends Api
           } else {
             $where['LIMIT'] = 10;
           }
+          $where['ORDER'] = ['sortOrder' => 'ASC'];
           $datas = $this->about->select('*', $where);
-          return $this->respondWithData(['books' => $datas, 'total' => $total ?? null]);
+          return $this->respondWithData(['abouts' => $datas, 'total' => $total ?? null]);
         }
       default:
         return $this->respondWithError('禁止访问', 403);
