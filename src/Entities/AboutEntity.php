@@ -26,19 +26,19 @@ class AboutEntity implements JsonSerializable
    * @var integer
    * @OA\Property(description="标签ID")
    */
-  private int $tagId;
+  private $tagId;
   /**
    * @DBType({"type":"varchar(80) NOT NULL DEFAULT ''"})
    * @var string
    * @OA\Property(description="标题")
    */
-  private string $title;
+  private $title;
   /**
    * @DBType({"type":"varchar(200) NOT NULL DEFAULT ''"})
    * @OA\Property(description="封面")
    * @var string
    */
-  private string $cover;
+  private $cover;
   /**
    * @DBType({"type":"varchar(300) NOT NULL DEFAULT ''"})
    * @var string
@@ -50,18 +50,13 @@ class AboutEntity implements JsonSerializable
    * @var string
    * @OA\Property(description="内容")
    */
-  private string $content;
+  private $content;
   /**
    * @DBType({"key": "","type":"tinyint(4) NOT NULL DEFAULT '0'"})
    * @OA\Property(description="排序")
    * @var integer
    */
-  private int $sortOrder;
-
-  public function jsonSerialize()
-  {
-    return get_object_vars($this);
-  }
+  private $sortOrder;
 }
 /**
  * @OA\Schema(
