@@ -34,7 +34,7 @@ class AboutApi extends Api
    * @throws Exception
    * @OA\Post(
    *  path="/api/manage/about",
-   *  tags={"About"},
+   *  tags={"Manage About"},
    *  summary="新建帮助说明",
    *  operationId="addAbout",
    *  security={{"bearerAuth":{}}},
@@ -62,7 +62,7 @@ class AboutApi extends Api
    * )
    * @OA\Put(
    *  path="/api/manage/about/{id}",
-   *  tags={"About"},
+   *  tags={"Manage About"},
    *  summary="修改信息",
    *  operationId="editAbout",
    *  security={{"bearerAuth":{}}},
@@ -97,7 +97,7 @@ class AboutApi extends Api
    * )
    * @OA\Delete(
    *  path="/api/manage/about/{id}",
-   *  tags={"About"},
+   *  tags={"Manage About"},
    *  summary="删除信息",
    *  operationId="delAbout",
    *  security={{"bearerAuth":{}}},
@@ -124,7 +124,7 @@ class AboutApi extends Api
    * )
    * @OA\Get(
    *  path="/api/manage/about/{id}",
-   *  tags={"About"},
+   *  tags={"Manage About"},
    *  summary="获取指定内容",
    *  operationId="GetAbout",
    *  security={{"bearerAuth":{}}},
@@ -151,7 +151,7 @@ class AboutApi extends Api
    * )
    * @OA\Get(
    *  path="/api/manage/about",
-   *  tags={"About"},
+   *  tags={"Manage About"},
    *  summary="获取数据列表",
    *  operationId="GetAboutList",
    *  @OA\Response(

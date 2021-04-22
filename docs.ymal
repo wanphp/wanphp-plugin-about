@@ -8,58 +8,7 @@ servers:
     url: 'https://localhost'
     description: 'OpenApi host'
 paths:
-  /api/manage/about:
-    get:
-      tags:
-        - About
-      summary: 获取数据列表
-      operationId: GetAboutList
-      responses:
-        '200':
-          description: 请求成功
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - { $ref: '#/components/schemas/Success' }
-                  - { properties: { datas: { type: array, items: { $ref: '#/components/schemas/About' } } }, type: object }
-        '400':
-          description: 请求失败
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - About
-      summary: 新建帮助说明
-      operationId: addAbout
-      requestBody:
-        description: 数据
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NewAbout'
-      responses:
-        '201':
-          description: 创建成功
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - { $ref: '#/components/schemas/Success' }
-                  - { properties: { datas: { properties: { id: { type: integer } }, type: object } }, type: object }
-        '400':
-          description: 请求失败
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      security:
-        -
-          bearerAuth: []
-  '/api/manage/about/{id}':
+  '/about/{id}':
     get:
       tags:
         - About
@@ -92,9 +41,114 @@ paths:
       security:
         -
           bearerAuth: []
-    put:
+  /about:
+    get:
       tags:
         - About
+      summary: 获取数据列表
+      operationId: GetAboutList
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - { $ref: '#/components/schemas/Success' }
+                  - { properties: { datas: { type: array, items: { $ref: '#/components/schemas/About' } } }, type: object }
+        '400':
+          description: 请求失败
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/manage/about:
+    get:
+      tags:
+        - 'Manage About'
+      summary: 获取数据列表
+      operationId: GetAboutList
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - { $ref: '#/components/schemas/Success' }
+                  - { properties: { datas: { type: array, items: { $ref: '#/components/schemas/About' } } }, type: object }
+        '400':
+          description: 请求失败
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - 'Manage About'
+      summary: 新建帮助说明
+      operationId: addAbout
+      requestBody:
+        description: 数据
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewAbout'
+      responses:
+        '201':
+          description: 创建成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - { $ref: '#/components/schemas/Success' }
+                  - { properties: { datas: { properties: { id: { type: integer } }, type: object } }, type: object }
+        '400':
+          description: 请求失败
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        -
+          bearerAuth: []
+  '/api/manage/about/{id}':
+    get:
+      tags:
+        - 'Manage About'
+      summary: 获取指定内容
+      operationId: GetAbout
+      parameters:
+        -
+          name: id
+          in: path
+          description: ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - { $ref: '#/components/schemas/Success' }
+                  - { properties: { datas: { $ref: '#/components/schemas/About' } }, type: object }
+        '400':
+          description: 请求失败
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        -
+          bearerAuth: []
+    put:
+      tags:
+        - 'Manage About'
       summary: 修改信息
       operationId: editAbout
       parameters:
@@ -133,7 +187,7 @@ paths:
           bearerAuth: []
     delete:
       tags:
-        - About
+        - 'Manage About'
       summary: 删除信息
       operationId: delAbout
       parameters:
@@ -268,5 +322,8 @@ tags:
     name: Tag
     description: 标签分组
   -
+    name: 'Manage About'
+    description: 管理帮助说明
+  -
     name: About
-    description: 帮助说明
+    description: 取用帮助说明

@@ -26,8 +26,12 @@ namespace Wanphp\Plugins\About\Application;
  *     description="标签分组"
  * )
  * @OA\Tag(
+ *     name="Manage About",
+ *     description="管理帮助说明"
+ * )
+ * @OA\Tag(
  *     name="About",
- *     description="帮助说明"
+ *     description="取用帮助说明"
  * )
  */
 
