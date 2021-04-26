@@ -36,7 +36,6 @@ class AboutApi extends Api
    *  tags={"About"},
    *  summary="获取指定内容",
    *  operationId="GetAbout",
-   *  security={{"bearerAuth":{}}},
    *  @OA\Parameter(
    *    name="id",
    *    in="path",
