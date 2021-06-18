@@ -34,7 +34,7 @@ class AboutApi extends Api
    * @OA\Get(
    *  path="/about/{id}",
    *  tags={"About"},
-   *  summary="获取指定内容",
+   *  summary="获取指定内容详情",
    *  operationId="GetAbout",
    *  @OA\Parameter(
    *    name="id",
@@ -60,7 +60,7 @@ class AboutApi extends Api
    * @OA\Get(
    *  path="/about",
    *  tags={"About"},
-   *  summary="获取数据列表",
+   *  summary="获取数据列表，可选参数，标签ID：tagId，查找关键词：keyword，页码：page默认为1，每页数量：size默认为10",
    *  operationId="GetAboutList",
    *  @OA\Response(
    *    response="200",

@@ -28,7 +28,7 @@ class TagApi extends Api
    * @OA\Get(
    *  path="/about/tags",
    *  tags={"Tag"},
-   *  summary="获取标签列表",
+   *  summary="获取标签列表，可选参数，查找关键词：keyword，页码：page默认为1，每页数量：size默认为10",
    *  operationId="GetTags",
    *  @OA\Response(
    *    response="200",

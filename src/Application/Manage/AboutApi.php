@@ -152,7 +152,7 @@ class AboutApi extends Api
    * @OA\Get(
    *  path="/api/manage/about",
    *  tags={"Manage About"},
-   *  summary="获取数据列表",
+   *  summary="获取数据列表，可选参数，标签ID：tagId，查找关键词：keyword，页码：page默认为1，每页数量：size默认为10",
    *  operationId="GetAboutList",
    *  @OA\Response(
    *    response="200",
