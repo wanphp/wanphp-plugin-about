@@ -49,9 +49,7 @@ class AboutApi extends Api
    *    @OA\JsonContent(
    *      allOf={
    *       @OA\Schema(ref="#/components/schemas/Success"),
-   *       @OA\Schema(
-   *         @OA\Property(property="datas",ref="#/components/schemas/About")
-   *       )
+   *       @OA\Schema(ref="#/components/schemas/About")
    *      }
    *    )
    *  ),
@@ -69,8 +67,9 @@ class AboutApi extends Api
    *      allOf={
    *       @OA\Schema(ref="#/components/schemas/Success"),
    *       @OA\Schema(
-   *         @OA\Property(property="datas",type="array",@OA\Items(ref="#/components/schemas/About"))
-   *       )
+   *         @OA\Property(property="abouts",type="array",@OA\Items(ref="#/components/schemas/About"))
+   *       ),
+   *       @OA\Property(property="total",type="integer",description="总量")
    *      }
    *    )
    *  ),

@@ -37,11 +37,12 @@ class TagApi extends Api
    *      allOf={
    *       @OA\Schema(ref="#/components/schemas/Success"),
    *       @OA\Schema(
-   *         @OA\Property(property="datas",type="array",@OA\Items(
+   *         @OA\Property(property="tags",type="array",@OA\Items(
    *            @OA\Property(property="id",type="integer",description="标签ID"),
    *            @OA\Property(property="name",type="string",description="标签名"),
    *            @OA\Property(property="sortOrder",type="integer",description="显示排序")
-   *        ))
+   *        )),
+   *        @OA\Property(property="total",type="integer",description="总量")
    *       )
    *      }
    *    )
@@ -63,8 +64,8 @@ class TagApi extends Api
       $where['LIMIT'] = [($cur_page - 1) * $pageSize, $pageSize];
       if ($cur_page == 1) $total = $this->tag->count('id', $where);
     }
-    $where['ORDER'] = ['sortOrder' => 'ASC'];
-    $datas = $this->tag->select('id,name,sortOrder', $where);
-    return $this->respondWithData(['tags' => $datas, 'total' => $total ?? null]);
+    $where['ORDER'] = ['ctime' => 'ASC'];
+    $tags = $this->tag->select('id,name,sortOrder', $where);
+    return $this->respondWithData(['tags' => $tags, 'total' => $total ?? 0]);
   }
 }

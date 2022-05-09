@@ -3,10 +3,6 @@ info:
   title: 帮助说明
   description: 帮助说明接口
   version: 1.0.0
-servers:
-  -
-    url: 'https://localhost'
-    description: 'OpenApi host'
 paths:
   '/about/{id}':
     get:
@@ -31,7 +27,7 @@ paths:
               schema:
                 allOf:
                   - { $ref: '#/components/schemas/Success' }
-                  - { properties: { datas: { $ref: '#/components/schemas/About' } }, type: object }
+                  - { $ref: '#/components/schemas/About' }
         '400':
           description: 请求失败
           content:
@@ -51,8 +47,9 @@ paths:
             application/json:
               schema:
                 allOf:
+                  - { properties: { abouts: { type: array, items: { $ref: '#/components/schemas/About' } } }, type: object }
                   - { $ref: '#/components/schemas/Success' }
-                  - { properties: { datas: { type: array, items: { $ref: '#/components/schemas/About' } } }, type: object }
+                  - { description: 总量, type: integer, property: total }
         '400':
           description: 请求失败
           content:
@@ -72,8 +69,8 @@ paths:
             application/json:
               schema:
                 allOf:
+                  - { properties: { abouts: { type: array, items: { $ref: '#/components/schemas/About' } } }, type: object }
                   - { $ref: '#/components/schemas/Success' }
-                  - { properties: { datas: { type: array, items: { $ref: '#/components/schemas/About' } } }, type: object }
         '400':
           description: 请求失败
           content:
@@ -99,8 +96,8 @@ paths:
             application/json:
               schema:
                 allOf:
+                  - { properties: { id: { type: integer } }, type: object }
                   - { $ref: '#/components/schemas/Success' }
-                  - { properties: { datas: { properties: { id: { type: integer } }, type: object } }, type: object }
         '400':
           description: 请求失败
           content:
@@ -133,7 +130,7 @@ paths:
               schema:
                 allOf:
                   - { $ref: '#/components/schemas/Success' }
-                  - { properties: { datas: { $ref: '#/components/schemas/About' } }, type: object }
+                  - { $ref: '#/components/schemas/About' }
         '400':
           description: 请求失败
           content:
@@ -171,8 +168,8 @@ paths:
             application/json:
               schema:
                 allOf:
+                  - { properties: { upNum: { type: integer } }, type: object }
                   - { $ref: '#/components/schemas/Success' }
-                  - { properties: { datas: { properties: { up_num: { type: integer } }, type: object } }, type: object }
         '400':
           description: 请求失败
           content:
@@ -203,8 +200,8 @@ paths:
             application/json:
               schema:
                 allOf:
+                  - { properties: { delNum: { type: integer } }, type: object }
                   - { $ref: '#/components/schemas/Success' }
-                  - { properties: { datas: { properties: { del_num: { type: integer } }, type: object } }, type: object }
         '400':
           description: 请求失败
           content:
@@ -227,8 +224,8 @@ paths:
             application/json:
               schema:
                 allOf:
+                  - { properties: { tags: { type: array, items: { properties: { id: { description: 标签ID, type: integer }, name: { description: 标签名, type: string }, sortOrder: { description: 显示排序, type: integer } }, type: object } }, total: { description: 总量, type: integer } }, type: object }
                   - { $ref: '#/components/schemas/Success' }
-                  - { properties: { datas: { type: array, items: { properties: { id: { description: 标签ID, type: integer }, name: { description: 标签名, type: string }, sortOrder: { description: 显示排序, type: integer } }, type: object } } }, type: object }
         '400':
           description: 请求失败
           content:
@@ -239,39 +236,13 @@ components:
   schemas:
     Error:
       title: 出错提示
-      properties:
-        code:
-          type: string
-          example: '400'
-        error:
-          type: string
-        error_description:
-          type: string
-        hint:
-          type: string
-        message:
-          type: string
-          example: 错误说明
       type: object
     Success:
       title: 成功提示
-      required:
-        - code
-        - message
-        - datas
-      properties:
-        code:
-          type: string
-          example: '200'
-        message:
-          type: string
-          example: OK
-        datas:
-          description: 返回数据
-          type: object
       type: object
     NewAbout:
       title: 添加帮助说明
+      description: 'Class AboutEntity'
       required:
         - title
       properties:
@@ -290,16 +261,14 @@ components:
         content:
           description: 内容
           type: string
-        sortOrder:
-          description: 排序
+        ctime:
+          description: 添加时间
           type: integer
       type: object
     About:
       title: 帮助说明
       type: object
       allOf:
-        -
-          $ref: '#/components/schemas/NewAbout'
         -
           required:
             - id
@@ -309,6 +278,8 @@ components:
               type: integer
               format: int64
           type: object
+        -
+          $ref: '#/components/schemas/NewAbout'
   securitySchemes:
     bearerAuth:
       type: http

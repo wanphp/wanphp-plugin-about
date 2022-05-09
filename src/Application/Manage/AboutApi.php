@@ -52,9 +52,7 @@ class AboutApi extends Api
    *    @OA\JsonContent(
    *      allOf={
    *       @OA\Schema(ref="#/components/schemas/Success"),
-   *       @OA\Schema(
-   *         @OA\Property(property="datas",@OA\Property(property="id",type="integer"))
-   *       )
+   *       @OA\Schema(@OA\Property(property="id",type="integer"))
    *      }
    *    )
    *  ),
@@ -87,9 +85,7 @@ class AboutApi extends Api
    *    @OA\JsonContent(
    *      allOf={
    *       @OA\Schema(ref="#/components/schemas/Success"),
-   *       @OA\Schema(
-   *         @OA\Property(property="datas",@OA\Property(property="up_num",type="integer"))
-   *       )
+   *       @OA\Schema(@OA\Property(property="upNum",type="integer"))
    *      }
    *    )
    *  ),
@@ -114,9 +110,7 @@ class AboutApi extends Api
    *    @OA\JsonContent(
    *      allOf={
    *       @OA\Schema(ref="#/components/schemas/Success"),
-   *       @OA\Schema(
-   *         @OA\Property(property="datas",@OA\Property(property="del_num",type="integer"))
-   *       )
+   *       @OA\Schema(@OA\Property(property="delNum",type="integer"))
    *      }
    *    )
    *  ),
@@ -141,9 +135,7 @@ class AboutApi extends Api
    *    @OA\JsonContent(
    *      allOf={
    *       @OA\Schema(ref="#/components/schemas/Success"),
-   *       @OA\Schema(
-   *         @OA\Property(property="datas",ref="#/components/schemas/About")
-   *       )
+   *       @OA\Schema(ref="#/components/schemas/About")
    *      }
    *    )
    *  ),
@@ -161,7 +153,7 @@ class AboutApi extends Api
    *      allOf={
    *       @OA\Schema(ref="#/components/schemas/Success"),
    *       @OA\Schema(
-   *         @OA\Property(property="datas",type="array",@OA\Items(ref="#/components/schemas/About"))
+   *         @OA\Property(property="abouts",type="array",@OA\Items(ref="#/components/schemas/About"))
    *       )
    *      }
    *    )
@@ -179,9 +171,9 @@ class AboutApi extends Api
       case 'PUT':
         $data = $this->request->getParsedBody();
         $num = $this->about->update($data, ['id' => $this->args['id']]);
-        return $this->respondWithData(['up_num' => $num], 201);
+        return $this->respondWithData(['upNum' => $num], 201);
       case 'DELETE':
-        return $this->respondWithData(['del_num' => $this->about->delete(['id' => $this->args['id']])]);
+        return $this->respondWithData(['delNum' => $this->about->delete(['id' => $this->args['id']])]);
       case 'GET';
         $id = $this->args['id'] ?? 0;
         if ($id > 0) {

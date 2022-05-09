@@ -52,11 +52,11 @@ class AboutEntity implements JsonSerializable
    */
   private $content;
   /**
-   * @DBType({"key": "","type":"tinyint(4) NOT NULL DEFAULT '0'"})
-   * @OA\Property(description="排序")
+   * @DBType({"type":"char(10) NOT NULL DEFAULT '0'"})
+   * @OA\Property(description="添加时间")
    * @var integer
    */
-  private $sortOrder;
+  private $ctime;
 }
 /**
  * @OA\Schema(
