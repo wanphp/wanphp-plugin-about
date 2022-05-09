@@ -12,7 +12,7 @@ return function (App $app, Middleware $PermissionMiddleware, Middleware $OAuthSe
   $app->get('/about[/{id:[0-9]+}]', \Wanphp\Plugins\About\Application\AboutApi::class);
   $app->group('/api/manage', function (Group $group) {
     //内容管理
-    $group->map(['GET', 'PUT', 'POST', 'DELETE'], '/about[/{id:[0-9]+}]', \Wanphp\Plugins\About\Application\Manage\AboutApi::class);
+    $group->map(['GET', 'PUT', 'POST', 'DELETE'], '/about[/{id:[0-9]+}]', \Wanphp\Plugins\About\Application\AboutApi::class);
   })->addMiddleware($PermissionMiddleware)->addMiddleware($OAuthServerMiddleware);
 };
 

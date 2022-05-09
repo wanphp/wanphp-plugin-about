@@ -4,58 +4,6 @@ info:
   description: 帮助说明接口
   version: 1.0.0
 paths:
-  '/about/{id}':
-    get:
-      tags:
-        - About
-      summary: 获取指定内容详情
-      operationId: GetAbout
-      parameters:
-        -
-          name: id
-          in: path
-          description: ID
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: 请求成功
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - { $ref: '#/components/schemas/Success' }
-                  - { $ref: '#/components/schemas/About' }
-        '400':
-          description: 请求失败
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /about:
-    get:
-      tags:
-        - About
-      summary: 获取数据列表，可选参数，标签ID：tagId，查找关键词：keyword，页码：page默认为1，每页数量：size默认为10
-      operationId: GetAboutList
-      responses:
-        '200':
-          description: 请求成功
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - { properties: { abouts: { type: array, items: { $ref: '#/components/schemas/About' } } }, type: object }
-                  - { $ref: '#/components/schemas/Success' }
-                  - { description: 总量, type: integer, property: total }
-        '400':
-          description: 请求失败
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /api/manage/about:
     get:
       tags:
@@ -211,6 +159,58 @@ paths:
       security:
         -
           bearerAuth: []
+  '/about/{id}':
+    get:
+      tags:
+        - About
+      summary: 获取指定内容详情
+      operationId: GetAbout
+      parameters:
+        -
+          name: id
+          in: path
+          description: ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - { $ref: '#/components/schemas/Success' }
+                  - { $ref: '#/components/schemas/About' }
+        '400':
+          description: 请求失败
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /about:
+    get:
+      tags:
+        - About
+      summary: 获取数据列表，可选参数，标签ID：tagId，查找关键词：keyword，页码：page默认为1，每页数量：size默认为10
+      operationId: GetAboutList
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - { properties: { abouts: { type: array, items: { $ref: '#/components/schemas/About' } } }, type: object }
+                  - { $ref: '#/components/schemas/Success' }
+                  - { description: 总量, type: integer, property: total }
+        '400':
+          description: 请求失败
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /about/tags:
     get:
       tags:
