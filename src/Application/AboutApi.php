@@ -169,7 +169,8 @@ class AboutApi extends Api
         if (is_numeric($id) && $id > 0) {
           return $this->respondWithError('内容已添加过');
         } else {
-          $data['ctime'] = time();
+          if (isset($data['ctime'])) $data['ctime'] = strtotime($data['ctime']);
+          else $data['ctime'] = time();
           return $this->respondWithData(['id' => $this->about->insert($data)], 201);
         }
       case 'PUT':
@@ -180,6 +181,7 @@ class AboutApi extends Api
           return $this->respondWithError('内容已存在');
         }
         if ($id > 0) {
+          if (isset($data['ctime'])) $data['ctime'] = strtotime($data['ctime']);
           return $this->respondWithData(['upNum' => $this->about->update($data, ['id' => $id])], 201);
         } else {
           return $this->respondWithError('缺少ID');
