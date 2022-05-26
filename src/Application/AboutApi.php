@@ -169,6 +169,7 @@ class AboutApi extends Api
         if (is_numeric($id) && $id > 0) {
           return $this->respondWithError('内容已添加过');
         } else {
+          $data['ctime'] = time();
           return $this->respondWithData(['id' => $this->about->insert($data)], 201);
         }
       case 'PUT':
