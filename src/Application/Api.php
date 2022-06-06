@@ -126,7 +126,7 @@ abstract class Api
    */
   protected function respondWithError($error = null, int $statusCode = 400): Response
   {
-    $json = json_encode(['code' => $statusCode, 'msg' => $error], JSON_PRETTY_PRINT + JSON_UNESCAPED_UNICODE);
+    $json = json_encode(['errMsg' => $error], JSON_PRETTY_PRINT + JSON_UNESCAPED_UNICODE);
     $this->response->getBody()->write($json);
 
     return $this->respond($statusCode);

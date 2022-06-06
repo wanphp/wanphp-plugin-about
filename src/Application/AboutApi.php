@@ -143,20 +143,9 @@ class AboutApi extends Api
    * @OA\Get(
    *  path="/api/manage/about",
    *  tags={"Manage About"},
-   *  summary="获取数据列表，可选参数，标签ID：tagId，查找关键词：keyword，页码：page默认为1，每页数量：size默认为10",
+   *  summary="获取数据列表，可选参数，标签ID：tagId，查找关键词：keyword，开始位置：start默认为0，取的数量：length默认为10",
    *  operationId="GetAboutList",
-   *  @OA\Response(
-   *    response="200",
-   *    description="请求成功",
-   *    @OA\JsonContent(
-   *      allOf={
-   *       @OA\Schema(ref="#/components/schemas/Success"),
-   *       @OA\Schema(
-   *         @OA\Property(property="abouts",type="array",@OA\Items(ref="#/components/schemas/About"))
-   *       )
-   *      }
-   *    )
-   *  ),
+   *  @OA\Response(response="200",description="请求成功",@OA\JsonContent(ref="#/components/schemas/Success")),
    *  @OA\Response(response="400",description="请求失败",@OA\JsonContent(ref="#/components/schemas/Error"))
    * )
    */
@@ -207,17 +196,10 @@ class AboutApi extends Api
             $keyword = trim($params['keyword']);
             $where['title[~]'] = $keyword;
           }
-          if (isset($params['page'])) {
-            $cur_page = $params['page'] > 0 ? $params['page'] : 1;
-            $pageSize = isset($params['size']) && $params['size'] > 0 ? $params['size'] : 10;
-            $where['LIMIT'] = [($cur_page - 1) * $pageSize, $pageSize];
-            if ($cur_page == 1) $total = $this->about->count('id', $where);
-          } else {
-            $where['LIMIT'] = 10;
-          }
-          $where['ORDER'] = ['id' => 'ASC'];
-          $abouts = $this->about->select('*', $where);
-          return $this->respondWithData(['abouts' => $abouts, 'total' => $total ?? null]);
+          $where['LIMIT'] = [$params['start'] ?? 0, $params['length'] ?? 10];
+          $where['ORDER'] = ['ctime' => 'DESC'];
+
+          return $this->respondWithData($this->about->select('id,title,ctime', $where));
         }
       default:
         return $this->respondWithError('禁止访问', 403);
@@ -252,21 +234,9 @@ class AboutApi extends Api
    * @OA\Get(
    *  path="/about",
    *  tags={"About"},
-   *  summary="获取数据列表，可选参数，标签ID：tagId，查找关键词：keyword，页码：page默认为1，每页数量：size默认为10",
+   *  summary="获取数据列表，可选参数，标签ID：tagId，查找关键词：keyword，开始位置：start默认为0，取的数量：length默认为10",
    *  operationId="GetAboutList",
-   *  @OA\Response(
-   *    response="200",
-   *    description="请求成功",
-   *    @OA\JsonContent(
-   *      allOf={
-   *       @OA\Schema(ref="#/components/schemas/Success"),
-   *       @OA\Schema(
-   *         @OA\Property(property="abouts",type="array",@OA\Items(ref="#/components/schemas/About"))
-   *       ),
-   *       @OA\Property(property="total",type="integer",description="总量")
-   *      }
-   *    )
-   *  ),
+   *  @OA\Response(response="200",description="请求成功",@OA\JsonContent(ref="#/components/schemas/Success")),
    *  @OA\Response(response="400",description="请求失败",@OA\JsonContent(ref="#/components/schemas/Error"))
    * )
    */

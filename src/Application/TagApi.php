@@ -28,7 +28,7 @@ class TagApi extends Api
    * @OA\Get(
    *  path="/about/tags",
    *  tags={"Tag"},
-   *  summary="获取标签列表，可选参数，查找关键词：keyword，页码：page默认为1，每页数量：size默认为10",
+   *  summary="获取标签列表，可选参数，查找关键词：keyword，开始位置：start默认为0，取的数量：length默认为10",
    *  operationId="GetTags",
    *  @OA\Response(
    *    response="200",
@@ -36,13 +36,11 @@ class TagApi extends Api
    *    @OA\JsonContent(
    *      allOf={
    *       @OA\Schema(ref="#/components/schemas/Success"),
-   *       @OA\Schema(
-   *         @OA\Property(property="tags",type="array",@OA\Items(
+   *       @OA\Schema(type="array",@OA\Items(
    *            @OA\Property(property="id",type="integer",description="标签ID"),
    *            @OA\Property(property="name",type="string",description="标签名"),
    *            @OA\Property(property="sortOrder",type="integer",description="显示排序")
-   *        )),
-   *        @OA\Property(property="total",type="integer",description="总量")
+   *        )
    *       )
    *      }
    *    )
@@ -58,14 +56,8 @@ class TagApi extends Api
       $keyword = trim($params['keyword']);
       $where['name[~]'] = $keyword;
     }
-    if (isset($params['page'])) {
-      $cur_page = $params['page'] > 0 ? $params['page'] : 1;
-      $pageSize = isset($params['size']) && $params['size'] > 0 ? $params['size'] : 10;
-      $where['LIMIT'] = [($cur_page - 1) * $pageSize, $pageSize];
-      if ($cur_page == 1) $total = $this->tag->count('id', $where);
-    }
-    $where['ORDER'] = ['ctime' => 'ASC'];
-    $tags = $this->tag->select('id,name,sortOrder', $where);
-    return $this->respondWithData(['tags' => $tags, 'total' => $total ?? 0]);
+    $where['LIMIT'] = [$params['start'] ?? 0, $params['length'] ?? 10];
+    $where['ORDER'] = ['sortOrder' => 'ASC'];
+    return $this->respondWithData($this->tag->select('id,name,sortOrder', $where));
   }
 }

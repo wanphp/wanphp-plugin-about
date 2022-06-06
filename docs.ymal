@@ -8,7 +8,7 @@ paths:
     get:
       tags:
         - 'Manage About'
-      summary: 获取数据列表，可选参数，标签ID：tagId，查找关键词：keyword，页码：page默认为1，每页数量：size默认为10
+      summary: 获取数据列表，可选参数，标签ID：tagId，查找关键词：keyword，开始位置：start默认为0，取的数量：length默认为10
       operationId: GetAboutList
       responses:
         '200':
@@ -16,9 +16,7 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - { properties: { abouts: { type: array, items: { $ref: '#/components/schemas/About' } } }, type: object }
-                  - { $ref: '#/components/schemas/Success' }
+                $ref: '#/components/schemas/Success'
         '400':
           description: 请求失败
           content:
@@ -193,7 +191,7 @@ paths:
     get:
       tags:
         - About
-      summary: 获取数据列表，可选参数，标签ID：tagId，查找关键词：keyword，页码：page默认为1，每页数量：size默认为10
+      summary: 获取数据列表，可选参数，标签ID：tagId，查找关键词：keyword，开始位置：start默认为0，取的数量：length默认为10
       operationId: GetAboutList
       responses:
         '200':
@@ -201,10 +199,7 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - { properties: { abouts: { type: array, items: { $ref: '#/components/schemas/About' } } }, type: object }
-                  - { $ref: '#/components/schemas/Success' }
-                  - { description: 总量, type: integer, property: total }
+                $ref: '#/components/schemas/Success'
         '400':
           description: 请求失败
           content:
@@ -215,7 +210,7 @@ paths:
     get:
       tags:
         - Tag
-      summary: 获取标签列表，可选参数，查找关键词：keyword，页码：page默认为1，每页数量：size默认为10
+      summary: 获取标签列表，可选参数，查找关键词：keyword，开始位置：start默认为0，取的数量：length默认为10
       operationId: GetTags
       responses:
         '200':
@@ -224,8 +219,8 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - { properties: { tags: { type: array, items: { properties: { id: { description: 标签ID, type: integer }, name: { description: 标签名, type: string }, sortOrder: { description: 显示排序, type: integer } }, type: object } }, total: { description: 总量, type: integer } }, type: object }
                   - { $ref: '#/components/schemas/Success' }
+                  - { type: array, items: { properties: { id: { description: 标签ID, type: integer }, name: { description: 标签名, type: string }, sortOrder: { description: 显示排序, type: integer } }, type: object } }
         '400':
           description: 请求失败
           content:
