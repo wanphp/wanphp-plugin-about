@@ -13,5 +13,5 @@ use Wanphp\Libray\Mysql\BaseInterface;
 
 interface AboutInterface extends BaseInterface
 {
-  const TABLENAME = "about";
+  const TABLE_NAME = "about";
 }

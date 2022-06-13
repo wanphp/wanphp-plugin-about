@@ -16,7 +16,7 @@ use Wanphp\Plugins\About\Domain\AboutInterface;
 /**
  * Class AboutApi
  * @title 关于我们
- * @route /api/manage/about
+ * @route /admin/about
  * @package Wanphp\Plugins\About\Application
  */
 class AboutApi extends Api
@@ -32,7 +32,7 @@ class AboutApi extends Api
    * @return Response
    * @throws Exception
    * @OA\Post(
-   *  path="/api/manage/about",
+   *  path="/admin/about",
    *  tags={"Manage About"},
    *  summary="新建帮助说明",
    *  operationId="addAbout",
@@ -42,7 +42,7 @@ class AboutApi extends Api
    *     required=true,
    *     @OA\MediaType(
    *       mediaType="application/json",
-   *       @OA\Schema(ref="#/components/schemas/NewAbout")
+   *       @OA\Schema(ref="#/components/schemas/newAbout")
    *     )
    *   ),
    *  @OA\Response(
@@ -58,7 +58,7 @@ class AboutApi extends Api
    *  @OA\Response(response="400",description="请求失败",@OA\JsonContent(ref="#/components/schemas/Error"))
    * )
    * @OA\Put(
-   *  path="/api/manage/about/{id}",
+   *  path="/admin/about/{id}",
    *  tags={"Manage About"},
    *  summary="修改信息",
    *  operationId="editAbout",
@@ -75,7 +75,7 @@ class AboutApi extends Api
    *     required=true,
    *     @OA\MediaType(
    *       mediaType="application/json",
-   *       @OA\Schema(ref="#/components/schemas/NewAbout")
+   *       @OA\Schema(ref="#/components/schemas/newAbout")
    *     )
    *   ),
    *  @OA\Response(
@@ -91,7 +91,7 @@ class AboutApi extends Api
    *  @OA\Response(response="400",description="请求失败",@OA\JsonContent(ref="#/components/schemas/Error"))
    * )
    * @OA\Delete(
-   *  path="/api/manage/about/{id}",
+   *  path="/admin/about/{id}",
    *  tags={"Manage About"},
    *  summary="删除信息",
    *  operationId="delAbout",
@@ -116,7 +116,7 @@ class AboutApi extends Api
    *  @OA\Response(response="400",description="请求失败",@OA\JsonContent(ref="#/components/schemas/Error"))
    * )
    * @OA\Get(
-   *  path="/api/manage/about/{id}",
+   *  path="/admin/about/{id}",
    *  tags={"Manage About"},
    *  summary="获取指定内容",
    *  operationId="GetAbout",
@@ -141,7 +141,7 @@ class AboutApi extends Api
    *  @OA\Response(response="400",description="请求失败",@OA\JsonContent(ref="#/components/schemas/Error"))
    * )
    * @OA\Get(
-   *  path="/api/manage/about",
+   *  path="/admin/about",
    *  tags={"Manage About"},
    *  summary="获取数据列表，可选参数，标签ID：tagId，查找关键词：keyword，开始位置：start默认为0，取的数量：length默认为10",
    *  operationId="GetAboutList",
@@ -196,7 +196,7 @@ class AboutApi extends Api
             $keyword = trim($params['keyword']);
             $where['title[~]'] = $keyword;
           }
-          $where['LIMIT'] = [$params['start'] ?? 0, $params['length'] ?? 10];
+          $where['LIMIT'] = $this->getLimit();
           $where['ORDER'] = ['ctime' => 'DESC'];
 
           return $this->respondWithData($this->about->select('id,title,ctime', $where));
@@ -208,7 +208,7 @@ class AboutApi extends Api
 
   /**
    * @OA\Get(
-   *  path="/about/{id}",
+   *  path="/api/about/{id}",
    *  tags={"About"},
    *  summary="获取指定内容详情",
    *  operationId="GetAbout",
@@ -232,7 +232,7 @@ class AboutApi extends Api
    *  @OA\Response(response="400",description="请求失败",@OA\JsonContent(ref="#/components/schemas/Error"))
    * )
    * @OA\Get(
-   *  path="/about",
+   *  path="/api/about",
    *  tags={"About"},
    *  summary="获取数据列表，可选参数，标签ID：tagId，查找关键词：keyword，开始位置：start默认为0，取的数量：length默认为10",
    *  operationId="GetAboutList",

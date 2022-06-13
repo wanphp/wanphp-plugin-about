@@ -2,9 +2,9 @@ openapi: 3.0.0
 info:
   title: 帮助说明
   description: 帮助说明接口
-  version: 1.0.0
+  version: 1.1.0
 paths:
-  /api/manage/about:
+  /admin/about:
     get:
       tags:
         - 'Manage About'
@@ -34,7 +34,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewAbout'
+              $ref: '#/components/schemas/newAbout'
       responses:
         '201':
           description: 创建成功
@@ -53,7 +53,7 @@ paths:
       security:
         -
           bearerAuth: []
-  '/api/manage/about/{id}':
+  '/admin/about/{id}':
     get:
       tags:
         - 'Manage About'
@@ -106,7 +106,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewAbout'
+              $ref: '#/components/schemas/newAbout'
       responses:
         '201':
           description: 更新成功
@@ -157,7 +157,7 @@ paths:
       security:
         -
           bearerAuth: []
-  '/about/{id}':
+  '/api/about/{id}':
     get:
       tags:
         - About
@@ -235,7 +235,7 @@ components:
     Success:
       title: 成功提示
       type: object
-    NewAbout:
+    newAbout:
       title: 添加帮助说明
       description: 'Class AboutEntity'
       required:
@@ -274,7 +274,7 @@ components:
               format: int64
           type: object
         -
-          $ref: '#/components/schemas/NewAbout'
+          $ref: '#/components/schemas/newAbout'
   securitySchemes:
     bearerAuth:
       type: http

@@ -18,6 +18,6 @@ class AboutRepository extends BaseRepository implements AboutInterface
 {
   public function __construct(Database $database)
   {
-    parent::__construct($database, self::TABLENAME, AboutEntity::class);
+    parent::__construct($database, self::TABLE_NAME, AboutEntity::class);
   }
 }

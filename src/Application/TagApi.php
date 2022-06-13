@@ -56,7 +56,7 @@ class TagApi extends Api
       $keyword = trim($params['keyword']);
       $where['name[~]'] = $keyword;
     }
-    $where['LIMIT'] = [$params['start'] ?? 0, $params['length'] ?? 10];
+    $where['LIMIT'] = $this->getLimit();
     $where['ORDER'] = ['sortOrder' => 'ASC'];
     return $this->respondWithData($this->tag->select('id,name,sortOrder', $where));
   }
