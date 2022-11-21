@@ -13,6 +13,10 @@ return function (App $app, Middleware $PermissionMiddleware, Middleware $OAuthSe
     $group->get('/about[/{id:[0-9]+}]', \Wanphp\Plugins\About\Application\AboutApi::class);
   });
   $app->group('/admin', function (Group $group) {
+    $group->get('/about/tags', \Wanphp\Plugins\About\Application\Manager\TagsAction::class);
+    $group->map(['PUT', 'POST', 'DELETE'], '/about/tags[/{id:[0-9]+}]', \Wanphp\Components\Category\Application\TagApi::class);
+    $group->get('/about/article[/{id:[0-9]+}]', \Wanphp\Plugins\About\Application\Manager\AboutAction::class);
+    $group->get('/about/list', \Wanphp\Plugins\About\Application\Manager\ListAction::class);
     //内容管理
     $group->map(['GET', 'PUT', 'POST', 'DELETE'], '/about[/{id:[0-9]+}]', \Wanphp\Plugins\About\Application\AboutApi::class);
   })->addMiddleware($PermissionMiddleware);

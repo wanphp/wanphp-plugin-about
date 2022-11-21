@@ -47,11 +47,6 @@ namespace Wanphp\Plugins\About\Application;
  * )
  */
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Exception\HttpBadRequestException;
-use Slim\Exception\HttpNotFoundException;
-use Exception;
 use Wanphp\Libray\Slim\Action;
 
 abstract class Api extends Action
