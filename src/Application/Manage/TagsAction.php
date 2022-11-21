@@ -1,6 +1,6 @@
 <?php
 
-namespace Wanphp\Plugins\About\Application\Manager;
+namespace Wanphp\Plugins\About\Application\Manage;
 
 
 use Psr\Http\Message\ResponseInterface as Response;
