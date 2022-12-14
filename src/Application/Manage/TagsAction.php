@@ -38,14 +38,15 @@ class TagsAction extends Action
 
       $data = [
         "draw" => $params['draw'],
-        "recordsTotal" => $this->tags->count('id'),
+        "recordsTotal" => $this->tags->count('id', ['code' => 'about']),
         "recordsFiltered" => $this->tags->count('id', $where),
         'data' => $this->tags->select('id,name,sortOrder', $where)
       ];
       return $this->respondWithData($data);
     } else {
       $data = [
-        'title' => '分类管理'
+        'title' => '分类管理',
+        'code' => 'about'
       ];
 
       return $this->respondView('@about/tags.html', $data);

@@ -42,7 +42,7 @@
             <label for="tagId">分类</label>
             <select id="tagId" name="tagId" class="form-control" style="width: 100%;">
               {% for tag in tags %}
-              <option value="{{ tag.id }}">{{ tag.name }}</option>
+              <option value="{{ tag.id }}" {{about.tagId==tag.id?'selected':''}}>{{ tag.name }}</option>
               {% endfor %}
             </select>
           </div>
@@ -182,12 +182,6 @@
       unhighlight: function (element, errorClass, validClass) {
         $(element).removeClass('is-invalid');
       }
-    });
-
-    $('#modal-addAbout').on('hidden.bs.modal', function () {
-      $('#aboutForm')[0].reset();
-      $('#aboutForm').attr('action', '/admin/about');
-      $('#aboutForm').attr('method', 'POST');
     });
 
     $('#cover-upload').click(function () {
