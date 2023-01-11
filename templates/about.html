@@ -86,7 +86,7 @@
 <script src="/js/exif.js"></script>
 <script src="/js/upimage.js"></script>
 <script src="/js/spark-md5.min.js"></script>
-<script src="/js/upvideo.js"></script>
+<script src="/js/upfile.js"></script>
 <script type="text/javascript">
   $(document).ready(function () {
     $.extend($.summernote.plugins, {
@@ -107,11 +107,11 @@
       },
       videoDialog: function () {
         this.show = function () {
-          $.uploadVideo('/admin/files', function (res) {
+          $.uploadFile({url: '/admin/files', accept: 'video/mp4', ext: 'mp4'}, function (res) {
             console.log(res);
             if (res.url) {
               var $video = $('<p><video id="video_' + res.id + '" class="video-js vjs-default-skin vjs-big-play-centered" ' +
-                'controls preload="auto" style="margin: 0 auto;" width="640" height="480"><source src="' + res.url + '" type="video/mp4"></video></p>');
+                'controls preload="auto" style="margin: 0 auto;" width="100%"><source src="' + res.url + '" type="video/mp4"></video></p>');
               $('#content').summernote('insertNode', $video[0]);
             } else {
               Toast.fire({

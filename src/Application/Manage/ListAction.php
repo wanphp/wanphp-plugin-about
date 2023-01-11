@@ -49,13 +49,15 @@ class ListAction extends Action
         "draw" => $params['draw'],
         "recordsTotal" => $this->about->count('id'),
         "recordsFiltered" => $this->about->count('id', $where),
-        'data' => $this->about->select('id,title,cover,ctime', $where)
+        'data' => $this->about->select('id,title,cover,description,ctime', $where)
       ];
       return $this->respondWithData($data);
     } else {
+      $tags = $this->tags->select('id,name', ['code' => 'about', 'ORDER' => ['sortOrder' => 'ASC']]);
       $data = [
         'title' => '通知公告管理',
-        'tags' => $this->tags->select('id,name', ['code' => 'about', 'ORDER' => ['sortOrder' => 'ASC']])
+        'tags' => $tags,
+        'tagId' => $tags[0]['id']
       ];
 
       return $this->respondView('@about/list.html', $data);
